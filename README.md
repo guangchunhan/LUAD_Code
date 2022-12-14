@@ -9,18 +9,15 @@ Please contact hkadara@mdanderson.org and LWang22@mdanderson.org with any questi
 
 ## Downloading the data
 
-Cell level metadata is available in the provided /Input_data/Cell metaData.rda, which contains QC statistics of cells, clinical information of associated samples and cell types. 
+Cell level metadata as well as the further level quantification data is available in the /Input_data folder, with detailed annotation in the corresponding codes parts
 
-All the raw data are uploading to EGA at the moment and the accession number will be released very soon (xxx-xx-xx).
-
-## Data visualization
+Sequencing data for P1-P5 were previously generated and deposited in the European Genome–phenome Archive (EGA) under the accession number EGAS000010050214. Sequencing data generated in this study including human scRNA-seq data (P6 – P16) and human spatial transcriptomics data will be deposited in EGA under the same accession number (EGAS00001005021) or be deposited in NCBI GEO (mouse scRNA-seq data and mouse spatial transcriptomics data) and made publicly available with the final version of this article.
 
 ### Requirements
 
-Tested on macOS Big Sur
+Tested on macOS Monterey (12.6.1)
 
-1. R version: 4.1.2
-2. R packages
+R packages:
    - ggplot2
    - data.table
    - Seurat
@@ -33,7 +30,6 @@ Tested on macOS Big Sur
    - pheatmap
    - Hmisc
    - monocle3
-   - ggrepel
 
-3. inferCNV_version(xxx)
-4. CytoTRACE_version(xxx)
+InferCNV(v1.3.2)
+CytoTRACE(v0.3.3)
