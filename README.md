@@ -31,5 +31,5 @@ Sequencing data for P1-P5 were previously generated and deposited in the Europea
    - Hmisc
    - monocle3
 
-##InferCNV(v1.3.2)
-##CytoTRACE(v0.3.3)
+-InferCNV(v1.3.2)
+-CytoTRACE(v0.3.3)
