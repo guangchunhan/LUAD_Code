@@ -102,7 +102,7 @@ if(TRUE) {
                     'adjacent' = '#c0bfc0')
     Fig2g = ggpaired(Frac_KAC,
                      x= 'Field',y = 'Frac',id = 'patient',
-                     color = 'Field',line.color = 'grey',line.size = .4,
+                     color = 'Field',line.color = 'grey',line.size = 0,
                      palette = sampleColor,
                      scales = 'free',
                      xlab = '',
@@ -172,7 +172,7 @@ if(TRUE) {
 }
 ##figure2h barplot fraction of LUAD coming cells was generated using JMP Pro v15
 
-##figure2j CNV score spatial plot
+##figure2j CNV score spatial plot: need ST data share permission, don't run, wait for data release
 if(FALSE) {
     library(patchwork)
     library(cowplot)
@@ -205,7 +205,7 @@ if(TRUE) {
     Fig2k_scatterData$celltype[Fig2k_scatterData$celltype=='KRT8_AVP'] = 'KAC'
     Fig2k_scatterData$celltype[Fig2k_scatterData$celltype=='AVP'] = 'Other AICs'
 
-    Fig2k_KAC_KRAS_scatterPlot <-ggplot(filter(Fig2k_scatterData,celltype == 'KAC'),
+    Fig2k_KAC_KRAS_scatterPlot <-ggplot(dplyr::filter(Fig2k_scatterData,celltype == 'KAC'),
                                         aes(x = ownKRAS,y = `krt8_tp100`)) +        ## global aes
         geom_point(color = 'grey60') +
         labs(x='',y='')+
@@ -223,7 +223,7 @@ if(TRUE) {
         theme(axis.text.x = element_text(angle = 90))
     print(Fig2k_MP31_alveolarSig)
 
-    Fig2k_KAC_MP31Alveolar_scatterPlot <-ggplot(filter(Fig2k_scatterData,celltype == 'KAC'),
+    Fig2k_KAC_MP31Alveolar_scatterPlot <-ggplot(dplyr::filter(Fig2k_scatterData,celltype == 'KAC'),
                                                 aes(x = AT2_altlas,y = `krt8_tp100`)) +        ## global aes
         geom_point(color = 'grey60') +
         labs(x='',y='')+
@@ -303,7 +303,7 @@ if(TRUE) {
         na.omit() %>%
         dplyr::rename('HR' = estimate) %>%
         mutate(q = p.adjust(p.value,'BH')) %>%
-        arrange(q)
+        dplyr::arrange(q)
     os.hazard.data1$comp = 'tbd'
     tabletext = cbind(c('term',as.character(os.hazard.data1$term)),
                       c('Comparison',os.hazard.data1$comp),

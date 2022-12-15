@@ -21,15 +21,20 @@ print(fig4d_bubblePlot)
 
 ##figure4 g barplots showing the fraction Krasg12d mutation carrying cells among cell lineages
 if(TRUE) {
-             data = read_tsv('Input_Data/Fig4g_FractionBarPlotData.txt')
+             data = readr::read_tsv('Input_Data/Fig4g_FractionBarPlotData.txt')
+             mycolor = c(AT1 = '#b56cad',
+                         AT2 = '#0d7072',
+                         'Early tumour/AT2' = '#a59c35',
+                         'KAC/KAC-like' = '#de1e26')
              data$celltype = factor(data$celltype,
                                     levels = c('AT1', 'AT2',
                                         'KAC/KAC-like',
                                         'Early tumour/AT2'
                                     ))
         fig4g = ggplot(data = data,aes(y = `celltype`,x=Fraction))+
-    geom_bar(width = .3,stat = 'identity') +
+    geom_bar(width = .3,stat = 'identity',aes(fill = celltype)) +
     xlab('') +
+        scale_fill_manual(values = mycolor) +
     theme_classic() +
     theme(
         panel.grid.major = element_blank(),

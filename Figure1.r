@@ -7,7 +7,7 @@ if(TRUE) { ##code for figure 1b bubble plot
     library('viridis')
     ## Fig1b-markerGene-expression.rds: bubble plot data object generated from seurat object, seurat object too big to be uploade.
     data  = readRDS('Input_data/Fig1b-markerGene-expression-v1.rds')
-    data = filter(data, !(id %in% c('proliferating_alveolar','proliferating_basal','proliferating_club')))
+    data = dplyr::filter(data, !(id %in% c('proliferating_alveolar','proliferating_basal','proliferating_club')))
     p1 = c('Malignant','AT1',  'AT2',
            'AIC','SDP','Tuft','Ciliated','NE', 'Ionocyte','Basal','Club')
     data$id = factor(data$id,
@@ -73,7 +73,7 @@ if(TRUE) { ##code for figure 1b bubble plot
 ##figure 1f,g: violinplots
 if(TRUE) {
     ##fig1F: violinplots of cnv score and smoking status
-    vlnData = readRDS('fig1f_g_violnPlot-v1.rds') ## data with cnvscore/cytotrace score for malignant cells 
+    vlnData = readRDS('Input_data/fig1f_g_violnPlot-v1.rds') ## data with cnvscore/cytotrace score for malignant cells 
     vlnData$smoking1 = factor(vlnData$smoking1, levels = c("smoker","never smoker"))
     smokingstatus=c('#509109','#ECE807'); names(smokingstatus)=c("never smoker","smoker");
     Fig1f_CNV_VlnBySmoke = ggplot(data = vlnData,aes(x=`smoking1`,y=`aviv_cnvscore_hg38`)) +
@@ -86,7 +86,7 @@ if(TRUE) {
     print(Fig1f_CNV_VlnBySmoke)
 
     ##show cnv score violin plot by mutation status three categories
-    mutationcolor1= c('KRAS' = '#ae3135','EGFR' = '#3d74b6','EGFR_KRAS_WT' = '#b4b4b5') 
+    mutationColor1= c('KRAS' = '#ae3135','EGFR' = '#3d74b6','EGFR_KRAS_WT' = '#b4b4b5') 
     Fig1f_CNV_VlnByMutation = ggplot(data = vlnData,aes(x=`mutation1`,y=`aviv_cnvscore_hg38`)) +
         geom_violin(scale = 'width', alpha = .8,lwd = 0.1,aes(fill =  mutation1)) +
         geom_boxplot(color = 'grey60',width = .2,outlier.shape= NA)  +
@@ -94,6 +94,7 @@ if(TRUE) {
         theme_classic() +
         scale_fill_manual(values = mutationColor1) + 
         theme(axis.text.x = element_text(angle = 90)) + theme_classic()
+    print(Fig1f_CNV_VlnByMutation)
 
     ##Fig1g: cytoTRACE score vlnplot by mutation group
     vlnData1 = vlnData;vlnData1$mutation1 = factor(vlnData1$mutation1,
@@ -106,6 +107,7 @@ if(TRUE) {
         theme_classic() +
         scale_fill_manual(values = mutationColor1) + 
         theme(axis.text.x = element_text(angle = 90)) + theme_classic()
+    print(Fig1gCyto_VlnByMutation)
 
     library(ggridges)
     ##Fig1G Ridge plot of differentiation score( cytotrace score) by patient 
@@ -125,6 +127,7 @@ if(TRUE) {
         labs(x = '',
              y = '') +
         ggridges::theme_ridges(grid = T) 
+    print(Fig1g_RidgePlot)
 }
 
 ##figure 1h,i,j: metaprogram analysis
@@ -170,17 +173,29 @@ if(TRUE) {
     ##figure 1i and 1j
     fig1i_j_data = readRDS('Input_Data/Fig1i_j_MPVlnData.rds') ##long format data of metaprogram scores for malignant cells
     library(ggplot2)
+    fig1i_j_data$MPs = factor(fig1i_j_data$MPs,
+                              levels = c(
+                                  'MP_30',
+                                  'MP_14',
+                                  'MP_19',
+                                  'MP_31'))
+    colors = c(c1 ='#f5918b',
+               c2 = '#b5b95f',
+               c3 = '#58c495',
+               c4 = '#d4bea7',
+               c5 = '#d2bfdc')
     Fig1i_j_VlnPlots = ggplot(data = fig1i_j_data,aes(x=`k5_rename`,y=`MPscore`)) +
         geom_violin(scale = 'width', alpha = .8,lwd = 0.1,aes(fill =  k5_rename)) +
         geom_boxplot(color = 'grey60',width = .2,outlier.shape= NA)  +
         xlab('') + ylab('score') +
+        scale_fill_manual(values = colors) +
         theme_classic() +
         ##scale_fill_manual(values = colors) + 
         facet_wrap(~MPs,scales = 'free') + 
         theme(axis.text.x = element_text(angle = 90))
     print(Fig1i_j_VlnPlots)
-    ggsave('Figure1i_j-selectedMPs-VlnPlot.pdf',plots,width = 7,
-           height = 12)
+    ## ggsave('Figure1i_j-selectedMPs-VlnPlot.pdf',plots,width = 7,
+           ## height = 12)
 }
 
 ##figure 1k: visualization results of malignant cell analysis of P14 incuding umap and mc2 dimension reduction was loaded into JMP Pro v15 and visualized accordingly.
