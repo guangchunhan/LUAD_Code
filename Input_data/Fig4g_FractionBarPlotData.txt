@@ -1,0 +1,5 @@
+celltype	ncell with KrasG12D	Fraction
+AT2	70	0.0548159749
+KAC/KAC-like	215	0.4182879377
+Early tumour/AT2	802	0.4121274409
+AT1	0	0
