@@ -1,0 +1,5 @@
+Group	number of cells with Kras G12D mutation	Fraction
+AT1	7	0.012
+AT2	34	0.019
+Malignant	340	0.201
+KAC	72	0.113
